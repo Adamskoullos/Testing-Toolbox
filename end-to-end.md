@@ -2,7 +2,10 @@
 
 Basic example test of a user filling out a form:
 
-**Note**: second argument can be an `async` function required when working with Puppeteer.
+**Note**:
+
+- second argument can be an `async` function required when working with Puppeteer.
+- The options object is currently set up for development. In prod set `headless` to `true` and we do not need `slowMo` or `args`.
 
 ```js
 test("Should create new element from user input", async () => {
