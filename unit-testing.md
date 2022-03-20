@@ -4,9 +4,10 @@
 
 The below example tests a function `useFilter`:
 
-- The `Arrange` includes two dummy props `testArray` and `val`.
-- The `Act` is to test `useFilter` passing in the dummy props.
-- The `Assertion` is the `expect` method from Jest.
+- The two props `testArray` and `val` are dummy data passed into the function being tested, `useFilter`
+- The `Arrange` is the expected result array returned from `useFilter` that is passed into the assertion method `toStrictEqual`.
+- The `Act` is the returned value from `useFilter` which is passed into the assertion method `expect`
+- The `Assertion` is the `expect` method from Jest comparing the Arrange value with the Act returned value
 
 ```js
 import useFilter from "../../src/utils/useFilter";
@@ -51,7 +52,7 @@ describe("AppHeader.vue", () => {
   });
   // Tests the component has a title
   // and the passed in title is successfully being used
-  it("Renders the title", () => {
+  it("Renders the props.title", () => {
     const title = "Super Duper User Table";
     const wrapper = shallowMount(AppHeader, {
       propsData: { title },

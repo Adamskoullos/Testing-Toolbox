@@ -1,7 +1,7 @@
 # Testing-Toolbox
 
-- [Unit Testing]()
-- [Integration Testing]()
+- [Unit Testing](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/unit-testing.md)
+- [Integration Testing]() > Todo
 - [End-To-End Testing](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/end-to-end.md)
 - [Mocking](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/mocking.md)
 
@@ -25,9 +25,9 @@ To create effective unit tests logic needs to be broken down into functions/unit
 
 Universal structure of a unit test `AAA`:
 
-- Arrange: Dummy data is saved to a property that is used as the target match for the `Act` returned value
-- Act: Act is the returned value from the tested unit of code
-- Assert: The `Assertion` is the function that compares the `Arrange` with the `Act` and provides a pass or fail for the unit test.
+- `Arrange`: Dummy data is saved to a property that is used as the target match for the `Act` returned value
+- `Act`: Act is the returned value from the tested unit of code
+- `Assert`: The `Assertion` is the function that compares the `Arrange` with the `Act` and provides a pass or fail for the unit test.
 
 ### Integration Testing
 
@@ -37,7 +37,7 @@ Integration tests chunk a group of units that would be equivalent to a large fun
 
 ### End-To-End Testing
 
-Test `user workflows`, to add this into the automated testing process within the pipeline we need to use a `headless browser` such as `Puppeteer`
+Test `user workflows`, to add this into the automated testing process within the pipeline we need to use a `headless browser` such as `Jest and Puppeteer` or `Cypress`
 
 An `End-To-End` test includes the code from all the `units` within the code tested within potentially multiple `integration` tests for a complete user workflow. For example when a user completes and posts a new form to the database.
 
