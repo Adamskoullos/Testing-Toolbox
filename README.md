@@ -11,7 +11,23 @@
 
 Test isolated `functions` and `components`
 
-To create effective unit tests logic needs to be broken down into functions that undertake a single task and do not have dependencies.
+To create effective unit tests logic needs to be broken down into functions/units that undertake a single meaningful task and do not have dependencies.
+
+- Each unit test can be run independently from any other unit test.
+
+- External dependencies are managed with `Doubles` > Mocks, Fakes, Stubs:
+  - `Mocks`> Is the function being called properly or not
+    - Is the mock function called
+    - How many times is it getting called
+    - What params are passed in when it is called
+  - `Stubs` > Generate pre-defined outputs
+  - `Fakes` > Used for testing code a unit of code handles data from a test db
+
+Universal structure of a unit test `AAA`:
+
+- Arrange: Dummy data is saved to a property that is used as the target match for the `Act` returned value
+- Act: Act is the returned value from the tested unit of code
+- Assert: The `Assertion` is the function that compares the `Arrange` with the `Act` and provides a pass or fail for the unit test.
 
 ### Integration Testing
 
