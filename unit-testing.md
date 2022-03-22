@@ -52,13 +52,14 @@ describe("AppHeader.vue", () => {
   });
   // Tests the component has a title
   // and the passed in title is successfully being used
-  it("Renders the props.title", () => {
-    const title = "Super Duper User Table";
+  it("Renders the title", () => {
     const wrapper = shallowMount(AppHeader, {
-      propsData: { title },
+      propsData: {
+        title: "Super Duper User Table",
+      },
     });
 
-    expect(wrapper.find("h1").text()).toMatch(title);
+    expect(wrapper.text()).toBe("Super Duper User Table");
   });
 });
 ```
