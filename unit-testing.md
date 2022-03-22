@@ -50,8 +50,8 @@ describe("AppHeader.vue", () => {
 
     expect(wrapper.find("img").exists()).toBe(true);
   });
-  // Tests the component has a title
-  // and the passed in title is successfully being used
+  // Test that component props are being correctly rendered
+  // Not element specific though !
   it("Renders the title", () => {
     const wrapper = shallowMount(AppHeader, {
       propsData: {
@@ -61,5 +61,22 @@ describe("AppHeader.vue", () => {
 
     expect(wrapper.text()).toBe("Super Duper User Table");
   });
+});
+```
+
+Element Specific example:
+
+This example tests the actual components data not dummy data as above
+
+```html
+<h1 data-test="title">{{ title }}</h1>
+```
+
+```js
+it("Renders the title", () => {
+  const wrapper = shallowMount(AppHeader);
+  const title = wrapper.get('[data-test="title"]');
+
+  expect(title.text()).toBe("Super Duper User Table");
 });
 ```
