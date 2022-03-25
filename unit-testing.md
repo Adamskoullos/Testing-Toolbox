@@ -1,6 +1,6 @@
 ## Unit Testing
 
-#### Individual Unit of Code
+### Individual Unit of Code
 
 The below example tests a function `useFilter`:
 
@@ -27,7 +27,7 @@ test("Return all items with a matching string", () => {
 });
 ```
 
-#### Vue Component
+### Vue Component
 
 ```js
 import {
@@ -80,3 +80,5 @@ it("Renders the title", () => {
   expect(title.text()).toBe("Super Duper User Table");
 });
 ```
+
+#### Triggering Events
