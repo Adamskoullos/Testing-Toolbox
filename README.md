@@ -6,14 +6,15 @@
 - [Querying Attributes Best Practice](#Querying-Attributes-Best-Practice)
 - [Query Patterns](#Query-Patterns)
 - [Assertions](#Assertions)
-- [Events and Interacting with Elements](#Events-and-Interacting-with-Elements)
+- [Events and Interacting with Elements](#Events-and-Interacting-with-Elements) (including a mocked function)
+- [Integration Testing](#Integration-Testing)
 
 ---
 
 ## Tools
 
-- `Unit Tests` > React testing library
-- `Integration Tests` > React testing library
+- `Unit Tests` > React testing library > Single component
+- `Integration Tests` > React testing library > Multiple components
 - `End-To-End Tests` > Cypress
 
 ---
@@ -38,32 +39,41 @@ A group of tests for a specific component can be grouped within a `describe bloc
     - test block two
 
 ```js
-import { render, screen } from "@testing-library/react";
-import SomeComponent from "./someComponent";
+import { render, screen, fireEvent } from "@testing-library/react";
+import AddInput from "../AddInput";
 
-describe('SomeComponent', () => {
-    // ByText
-    it("should render the passed in title text", () => {
-        // Render the component into the virtual dom
-        render(<SomeComponent title="My Header" />);
-        // Grab elements to test
-        const headingElement = screen.getByText(/My Header/i);
-        // Interact with elements (not used in this test)
+// Mocked function that does nothing
+const mockedSetTodo = jest.fn();
 
-        // Assert if results are as expected
-        expect(headingElement).toBeInTheDocument();
-    });
-    // ByRole
-    it("should render the heading", () => {
-        // Render the component into the virtual dom
-        render(<SomeComponent />);
-        // Grab elements to test
-        const headingElement = screen.getByRole('heading'));
-        // Interact with elements (not used in this test)
+describe("AddInput", () => {
+  it("should render input element", async () => {
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+    expect(inputEl).toBeInTheDocument();
+  });
 
-        // Assert if results are as expected
-        expect(headingElement).toBeInTheDocument();
-    });
+  it("should be able to type into the input", async () => {
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+
+    // Interact with elements (update input element value)
+    fireEvent.change(inputEl, { target: { value: "Buy bananas" } });
+    expect(inputEl.value).toBe("Buy bananas");
+  });
+
+  it("should be able to click the add button and reset the input value", async () => {
+    // Render component
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+
+    // Grab elements
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+    const addButtonEl = screen.getByRole("button", { name: "Add" });
+
+    // Interact with elements (update input element value, click button, reset to empty string)
+    fireEvent.change(inputEl, { target: { value: "Buy bananas" } });
+    fireEvent.click(addButtonEl);
+    expect(inputEl.value).toBe("");
+  });
 });
 ```
 
@@ -203,6 +213,8 @@ it("should render all headings", () => {
 });
 ```
 
+[Back to top](#Testing-Toolbox)
+
 ---
 
 ## Assertions
@@ -281,6 +293,62 @@ it("should be visible to the user", () => {
 });
 ```
 
+[Back to top](#Testing-Toolbox)
+
 ---
 
 ## Events and Interacting with Elements
+
+The below examples are for an input component that includes an input and add button.
+
+```js
+import { render, screen, fireEvent } from "@testing-library/react";
+import AddInput from "../AddInput";
+
+// Mocked function that does nothing
+const mockedSetTodo = jest.fn();
+
+describe("AddInput", () => {
+  it("should render input element", async () => {
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+    expect(inputEl).toBeInTheDocument();
+  });
+
+  it("should be able to type into the input", async () => {
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+
+    // Interact with elements (update input element value)
+    fireEvent.change(inputEl, { target: { value: "Buy bananas" } });
+    expect(inputEl.value).toBe("Buy bananas");
+  });
+
+  it("should be able to click the add button and reset the input value", async () => {
+    // Render component
+    render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
+
+    // Grab elements
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+    const addButtonEl = screen.getByRole("button", { name: "Add" });
+
+    // Interact with elements (update input element value, click button, reset to empty string)
+    fireEvent.change(inputEl, { target: { value: "Buy bananas" } });
+    fireEvent.click(addButtonEl);
+    expect(inputEl.value).toBe("");
+  });
+});
+```
+
+[Back to top](#Testing-Toolbox)
+
+---
+
+## Integration Testing
+
+The below example tests the integration of two components:
+
+1. AddTask
+2. TaskList
+
+`Todo` is the parent component.
