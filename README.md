@@ -352,3 +352,98 @@ The below example tests the integration of two components:
 2. TaskList
 
 `Todo` is the parent component.
+
+Because `AddTodo` has `Link` we will wrap the parent in the `BrowserRouter` tags and use the MockTodo.
+Rendering the parent component `Todo` also renders both `AddTodo` and `TaskList` making their elements available.
+
+The first example below shows a single task being created in `AddTodo` and then added to/populated in `TodoList`:
+
+```js
+import { render, screen, fireEvent } from "@testing-library/react";
+import Todo from "../Todo";
+import AddTodo from "../AddTodo";
+import TaskList from "../TaskList";
+import { BrowserRouter } from "react-router-dom";
+
+const MockTodo = () => {
+  return (
+    <BrowserRouter>
+      <Todo />
+    </BrowserRouter>
+  );
+};
+describe("Todo", () => {
+  it("should render task element", async () => {
+    // Render parent component
+    render(<MockTodo />);
+    // Elements in AddTodo
+    const inputEl = screen.getByPlaceholderText("Add a new task...");
+    const addButtonEl = screen.getByRole("button", { name: "Add" });
+    // Interact with elements (Add todo)
+    fireEvent.change(inputEl, { target: { value: "Buy bananas" } });
+    fireEvent.click(addButtonEl, { name: "Add new task..." });
+    // Grab elements in TodoList
+    const todoListItemEl = screen.getByText("Buy bananas");
+    // Assert that the new task is in the TodoList component
+    expect(todoListItem).toBeInTheDocument();
+  });
+});
+```
+
+Following on from the above we can use a function to create multiple and add tasks to the TodoList component so we can test that an array of tasks is being correctly created and rendered:
+
+```js
+const addTask = (tasks) => {
+  // Elements in AddTodo
+  const inputEl = screen.getByPlaceholderText("Add a new task...");
+  const addButtonEl = screen.getByRole("button", { name: "Add" });
+  // Add task for each item in tasks
+  tasks.forEach((task, index) => {
+    // Interact with elements (Add todo)
+    fireEvent.change(inputEl, { target: { value: task } });
+    fireEvent.click(addButtonEl, { name: "Add new task..." });
+  });
+};
+
+describe("Todo", () => {
+  it("should render multiple tasks elements", async () => {
+    // Render parent component
+    render(<MockTodo />);
+    // Add multiple tasks
+    addTask(["buy bananas", "wash up", "iron jeans", "eat cake"]);
+    // Grab elements in TodoList
+    const taskElements = screen.getAllByTestId("task");
+    // Assert that the new task is in the TodoList component
+    expect(taskElements.length).toBe(3);
+  });
+});
+```
+
+We can also check for elements to have or not have class names. The below example asserts that new tasks do have not the completed class:
+
+```js
+describe("Todo", () => {
+  it("should render tasks as incomplete", async () => {
+    // Render parent component
+    render(<MockTodo />);
+    addTask(["buy bananas"]);
+    const taskElement = screen.getByText("buy bananas");
+    expect(taskElement).not.toHaveClass("complete");
+  });
+});
+```
+
+The next example tests that if a tasklist is clicked and set to complete that it is assigned the `complete` class:
+
+```js
+describe("Todo", () => {
+  it("should add class complete when clicked", async () => {
+    // Render parent component
+    render(<MockTodo />);
+    addTask(["buy bananas"]);
+    const taskElement = screen.getByText("buy bananas");
+    fireEvent.click(taskElement);
+    expect(taskElement).toHaveClass("complete");
+  });
+});
+```
