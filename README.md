@@ -46,6 +46,22 @@ import AddInput from "../AddInput";
 const mockedSetTodo = jest.fn();
 
 describe("AddInput", () => {
+  beforeAll(() => {
+    // code to run once before all test
+  });
+
+  beforeEach(() => {
+    // code to run before each test
+  });
+
+  afterAll(() => {
+    // code to run once after all test
+  });
+
+  afterEach(() => {
+    // code to run after each test
+  });
+
   it("should render input element", async () => {
     render(<AddInput todos={[]} setTodos={mockedSetTodo} />);
     const inputEl = screen.getByPlaceholderText("Add a new task...");
@@ -447,3 +463,7 @@ describe("Todo", () => {
   });
 });
 ```
+
+[Back to top](#Testing-Toolbox)
+
+---
