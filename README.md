@@ -13,7 +13,7 @@
 
 ### Cypress Testing
 
-- [Setup]()
+- [Setup](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/cypress/notes/setup.md)
 - [Cypress Basics]()
 - [Cypress + Testing-Library React]()
 
