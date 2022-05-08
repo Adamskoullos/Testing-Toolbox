@@ -1,5 +1,7 @@
 ## Testing-Toolbox
 
+### React Testing Library
+
 - [Tools](#Tools)
 - [Test and Describe Blocks](#Test-and-Describe-Blocks)
 - [Query Methods](#Query-Methods)
@@ -9,13 +11,19 @@
 - [Events and Interacting with Elements](#Events-and-Interacting-with-Elements) (including a mocked function)
 - [Integration Testing](#Integration-Testing)
 
+### Cypress Testing
+
+- [Setup]()
+- [Cypress Basics]()
+- [Cypress + Testing-Library React]()
+
 ---
 
 ## Tools
 
 - `Unit Tests` > React testing library > Single component
 - `Integration Tests` > React testing library > Multiple components
-- `End-To-End Tests` > Cypress
+- `Unit | Integration | E2E Tests` > Cypress
 
 ---
 

@@ -1,7 +1,6 @@
 ## Cypress
 
 - [Setup](#Setup)
-- [Get Elements]
 
 ---
 
