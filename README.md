@@ -14,7 +14,7 @@
 ### Cypress Testing
 
 - [Setup](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/cypress/notes/setup.md)
-- [Cypress Basics]()
+- [Cypress Basics](https://github.com/Adamskoullos/Testing-Toolbox/blob/main/cypress/notes/basics.md)
 - [Cypress + Testing-Library React]()
 
 ---
