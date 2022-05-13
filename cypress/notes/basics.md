@@ -3,6 +3,7 @@
 - [Test Structure]()
 - [get]()
 - [contains]()
+- [get with contains](#get-with-contains)
 - [find]()
 
 ---
@@ -19,7 +20,12 @@ The `describe` text should state either:
 ```js
 /// <reference types="cypress" />
 
-describe("", () => {});
+describe("Task list page", () => {
+  beforeEach(() => {
+    cy.visit("/task-list");
+  });
+  it("");
+});
 ```
 
 ---
@@ -58,4 +64,32 @@ cy.get("button.btn-submit[type='submit']");
 
 ## contains
 
-`contains` allows us to grab elements that contain a specific text.
+`contains` allows us to grab a **single** element that contain a specific text.
+
+```js
+// get element by unique text
+cy.contains("unique text");
+
+// get element by text used in multiple components
+cy.contains("common text"); // only grabs the first element with match
+
+// We can use two arguments: the first being the selector and the second being the element text
+cy.contains("[type='submit']", "Add task");
+cy.contains("button", "Add task");
+```
+
+## get with contains
+
+We can get multiple elements and then filter to grab a a single element
+
+```js
+cy.get("button").contains("Add task");
+```
+
+## find
+
+`find` allows us to grab child elements of parent element. We first grab the parent with `get`/`contains` then chain `find` to grab the child:
+
+```js
+cy.get("form").find(".input-one");
+```
