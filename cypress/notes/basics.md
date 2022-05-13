@@ -1,10 +1,10 @@
 ## Cypress Core
 
-- [Test Structure]()
-- [get]()
-- [contains]()
+- [Test Structure](#Test-Structure)
+- [get](#get)
+- [contains](#contains)
 - [get with contains](#get-with-contains)
-- [find]()
+- [find](#find)
 
 ---
 
