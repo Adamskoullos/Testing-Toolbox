@@ -5,6 +5,7 @@
 - [contains](#contains)
 - [get with contains](#get-with-contains)
 - [find](#find)
+- [Using Mocked Data](#Using-Mocked-Data)
 
 ---
 
@@ -92,4 +93,18 @@ cy.get("button").contains("Add task");
 
 ```js
 cy.get("form").find(".input-one");
+```
+
+## Using Mocked Data
+
+If a page/component pulls in data we can mock that call and save mocked data within the `fixtures` folder.
+Cypress then intercepts this call and instead returns the mocked data:
+
+```js
+it("should display a list of items", () => {
+  cy.intercept("GET", "http://localhost:3000/items", {
+    fixture: "items.json",
+  });
+  cy.get("ul").should("contain", "an items text");
+});
 ```
